@@ -1,5 +1,7 @@
 # Todo APP
 
+![todo-app-screenshoot](https://raw.githubusercontent.com/alfanfauzy/todoapp-crud-reactjs/main/src/images/screenshoot-website.png)
+
 [Todo App](https://todoapp-crud-reactjs.vercel.app/) is a website which allow user to Add, Edit, Remove Todo.
 This website development with [Create-React-App](https://create-react-app.dev/).
 
@@ -11,7 +13,7 @@ This website development with [Create-React-App](https://create-react-app.dev/).
 
 ## ⚒️ Tech
 
-* [ReactJS](https://reactjs.org/)
-* [useContext](https://beta.reactjs.org/reference/react/useContext#usecontext)
-* [useReducer](https://beta.reactjs.org/reference/react/useReducer)
-* [ant design](https://ant.design/)
+- [ReactJS](https://reactjs.org/)
+- [useContext](https://beta.reactjs.org/reference/react/useContext#usecontext)
+- [useReducer](https://beta.reactjs.org/reference/react/useReducer)
+- [ant design](https://ant.design/)
