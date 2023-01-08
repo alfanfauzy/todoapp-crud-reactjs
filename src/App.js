@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { Wrapper, Title, WrapperTodo } from './App.style.js';
+import Footer from './components/atoms/Footer/index.js';
+import TodoListComponents from './components/organisms/TodoList/index.js';
+import TodoListForm from './components/organisms/TodoListForm/index.js';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Wrapper>
+      <Title>TODO APP</Title>
+      <WrapperTodo>
+        {/** Form Todo List */}
+        <TodoListForm />
+
+        {/** Todo List */}
+        <TodoListComponents />
+
+        {/** Footer Todo */}
+        <Footer />
+      </WrapperTodo>
+    </Wrapper>
   );
 }
 
