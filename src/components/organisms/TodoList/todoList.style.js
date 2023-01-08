@@ -1,8 +1,10 @@
 import { styled } from '@stitches/react';
 
 const WrapperTodoList = styled('div', {
+  minHeight: '92px',
   height: '100%',
   marginBottom: '35px',
+  textAlign: 'center',
 });
 
 const TodoList = styled('div', {

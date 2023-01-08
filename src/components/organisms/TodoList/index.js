@@ -13,70 +13,61 @@ import {
 } from './todoList.style';
 import IconComponent from '../../atoms/Icon';
 import { LabelComponent } from '../../atoms/Label';
+import { useTodoContext } from '../../../hooks';
+import EmptyStateComponent from '../../atoms/EmptyState';
 
 const TodoListComponents = () => {
+  const { state: todos, dispatch } = useTodoContext();
+
+  const EmptyState = () => {
+    return (
+      todos.length === 0 && (
+        <EmptyStateComponent text={`You don't have any task`} />
+      )
+    );
+  };
+
   return (
     <WrapperTodoList>
-      <TodoList>
-        <TodoItem>
-          <AtomButton
-            type="text"
-            icon={<IconComponent component={MinusCircleOutlined} />}
-          />
-          <LabelComponent text={'Learn Javascript'} disabled />
-        </TodoItem>
-        <TodoListAction>
-          <AtomButton
-            type="text"
-            icon={<IconComponent component={CloseSquareOutlined} />}
-          />
-        </TodoListAction>
-      </TodoList>
-      <TodoList>
-        <TodoItem>
-          <AtomButton
-            type="text"
-            icon={<IconComponent component={MinusCircleOutlined} />}
-          />
-          <LabelComponent text={'Learn ReactJS'} disabled />
-        </TodoItem>
-        <TodoListAction>
-          <AtomButton
-            type="text"
-            icon={<IconComponent component={CloseSquareOutlined} />}
-          />
-        </TodoListAction>
-      </TodoList>
-      <TodoList>
-        <TodoItem>
-          <AtomButton
-            type="text"
-            icon={<IconComponent component={CheckCircleTwoTone} />}
-          />
-          <LabelComponent text={'Learn Typescript'} />
-        </TodoItem>
-        <TodoListAction>
-          <AtomButton
-            type="text"
-            icon={<IconComponent component={CloseSquareOutlined} />}
-          />
-        </TodoListAction>
-      </TodoList>
-      <TodoList>
-        <TodoItem>
-          <AtomButton
-            type="text"
-            icon={<IconComponent component={CheckCircleTwoTone} />}
-          />
-          <LabelComponent text={'Learn Tailwind'} />
-        </TodoItem>
-        <TodoListAction>
-          <AtomButton
-            type="text"
-            icon={<IconComponent component={CloseSquareOutlined} />}
-          />
-        </TodoListAction>
-      </TodoList>
+      <EmptyState />
+      {todos &&
+        todos.map((todo, index) => (
+          <TodoList key={index}>
+            <TodoItem>
+              <AtomButton
+                type="text"
+                icon={
+                  <IconComponent
+                    component={
+                      todo.isCompleted
+                        ? CheckCircleTwoTone
+                        : MinusCircleOutlined
+                    }
+                  />
+                }
+                onClick={() =>
+                  dispatch({
+                    type: 'EDIT_TODO',
+                    data: { ...todo, isCompleted: !todo.isCompleted },
+                  })
+                }
+              />
+              <LabelComponent text={todo.value} disabled={todo.isCompleted} />
+            </TodoItem>
+            <TodoListAction>
+              <AtomButton
+                type="text"
+                icon={<IconComponent component={CloseSquareOutlined} />}
+                onClick={() =>
+                  dispatch({
+                    type: 'DELETE_TODO',
+                    data: { ...todo },
+                  })
+                }
+              />
+            </TodoListAction>
+          </TodoList>
+        ))}
     </WrapperTodoList>
   );
 };

@@ -4,8 +4,12 @@ import { Input } from 'antd';
 
 import { styled } from '@stitches/react';
 
-const AtomInput = () => {
-  return <InputForm placeholder="Add new task here . . " />;
+const AtomInput = (props) => {
+  const { placeholder, value, onChange } = props;
+
+  return (
+    <InputForm placeholder={placeholder} value={value} onChange={onChange} />
+  );
 };
 
 const InputForm = styled(Input, {

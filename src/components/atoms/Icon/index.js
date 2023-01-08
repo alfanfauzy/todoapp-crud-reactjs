@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon, { HomeOutlined } from '@ant-design/icons';
+import Icon from '@ant-design/icons';
 
 const IconComponent = (props) => {
   const { component } = props;
