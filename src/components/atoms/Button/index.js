@@ -9,9 +9,9 @@ import { Button } from 'antd';
  * @returns
  */
 const AtomButton = (props) => {
-  const { type, icon } = props;
+  const { type, icon, onClick } = props;
 
-  return <Button type={type} icon={icon} />;
+  return <Button type={type} icon={icon} onClick={onClick} />;
 };
 
 export default AtomButton;

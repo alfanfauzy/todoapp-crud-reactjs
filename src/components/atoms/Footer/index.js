@@ -1,8 +1,13 @@
 import React from 'react';
+import { useTodoContext } from '../../../hooks';
 import { FooterTodo } from './footer.style';
 
 const Footer = () => {
-  return <FooterTodo>10 Task Left</FooterTodo>;
+  const { state: todos } = useTodoContext();
+
+  const totalLeftTodos = todos?.filter((todo) => !todo.isCompleted).length || 0;
+
+  return <FooterTodo>{totalLeftTodos} Task Left</FooterTodo>;
 };
 
 export default Footer;
