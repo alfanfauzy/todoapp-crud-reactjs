@@ -13,28 +13,26 @@ const TodoListForm = () => {
 
   const [valueTask, setValueTask] = useState();
 
+  const handleSubmit = () => {
+    dispatch({
+      type: 'ADD_TODO',
+      data: { value: valueTask, isCompleted: false },
+    });
+    setValueTask('');
+  };
+
   return (
     <WrapperTodoForm>
       <AtomInput
         placeholder="Add new task here"
         value={valueTask}
         onChange={(event) => setValueTask(event.target.value)}
-        onSubmit={() =>
-          dispatch({
-            type: 'ADD_TODO',
-            data: { value: valueTask, isCompleted: false },
-          })
-        }
+        onSubmit={() => handleSubmit()}
       />
       <AtomButton
         type="text"
         icon={<IconComponent component={PlusOutlined} />}
-        onClick={() =>
-          dispatch({
-            type: 'ADD_TODO',
-            data: { value: valueTask, isCompleted: false },
-          })
-        }
+        onClick={() => handleSubmit()}
       />
     </WrapperTodoForm>
   );
