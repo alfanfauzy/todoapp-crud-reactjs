@@ -1,7 +1,14 @@
+import { styled } from '@stitches/react';
 import React from 'react';
 import { LabelComponent } from '../Label';
-import { WrapperEmptyState } from './emptystate.style';
 
+/**
+ *
+ * @param {{
+ * text: string
+ * }} props
+ * @returns
+ */
 const EmptyStateComponent = (props) => {
   const { text } = props;
   return (
@@ -10,5 +17,11 @@ const EmptyStateComponent = (props) => {
     </WrapperEmptyState>
   );
 };
+
+const WrapperEmptyState = styled('span', {
+  textAlign: 'center',
+  padding: '22px',
+  display: 'block',
+});
 
 export default EmptyStateComponent;

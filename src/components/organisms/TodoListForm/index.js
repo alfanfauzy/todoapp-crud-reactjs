@@ -19,6 +19,12 @@ const TodoListForm = () => {
         placeholder="Add new task here"
         value={valueTask}
         onChange={(event) => setValueTask(event.target.value)}
+        onSubmit={() =>
+          dispatch({
+            type: 'ADD_TODO',
+            data: { value: valueTask, isCompleted: false },
+          })
+        }
       />
       <AtomButton
         type="text"
