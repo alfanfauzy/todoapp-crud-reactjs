@@ -7,6 +7,9 @@ import { WrapperTodoForm } from './todoListForm.style';
 import AtomButton from '../../atoms/Button';
 import IconComponent from '../../atoms/Icon';
 import { useTodoContext } from '../../../hooks';
+import { addTodo } from '../../../services';
+import { createUniqueId } from '../../../utils';
+import { toast } from 'react-toastify';
 
 const TodoListForm = () => {
   const { dispatch } = useTodoContext();
@@ -14,11 +17,30 @@ const TodoListForm = () => {
   const [valueTask, setValueTask] = useState();
 
   const handleSubmit = () => {
-    dispatch({
-      type: 'ADD_TODO',
-      data: { value: valueTask, isCompleted: false },
-    });
-    setValueTask('');
+    const payload = {
+      id: createUniqueId(),
+      value: valueTask,
+      isCompleted: false,
+    };
+
+    try {
+      addTodo(payload).then((response) => {
+        if (response.status === 201) {
+          /** Run Dispatch ADD TODO */
+          dispatch({
+            type: 'ADD_TODO',
+            data: response.data,
+          });
+
+          /** Clear Input */
+          setValueTask('');
+
+          toast.success('Successfull add new todo');
+        }
+      });
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   return (
