@@ -1,4 +1,5 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useEffect, useReducer } from 'react';
+import { getTodos } from '../services';
 import { TodoReducer } from './action';
 
 export const ProviderTodoApp = createContext(null);
@@ -12,6 +13,18 @@ export const TodoAppContext = ({ children }) => {
     state,
     dispatch,
   };
+
+  const handleGetTodoAll = () => {
+    try {
+      getTodos().then((response) =>
+        dispatch({ type: 'GET_TODOS', data: { response } })
+      );
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    handleGetTodoAll();
+  }, []);
 
   return (
     <ProviderTodoApp.Provider value={initialValue}>

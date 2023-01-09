@@ -15,16 +15,56 @@ import IconComponent from '../../atoms/Icon';
 import { LabelComponent } from '../../atoms/Label';
 import { useTodoContext } from '../../../hooks';
 import EmptyStateComponent from '../../atoms/EmptyState';
+import { deleteTodo, updateTodo } from '../../../services';
+import { toast } from 'react-toastify';
 
 const TodoListComponents = () => {
   const { state: todos, dispatch } = useTodoContext();
 
   const EmptyState = () => {
     return (
-      todos.length === 0 && (
+      todos?.length === 0 && (
         <EmptyStateComponent text={`You don't have any task`} />
       )
     );
+  };
+
+  const handleEditTodo = (todo) => {
+    const payload = { ...todo, isCompleted: !todo.isCompleted };
+
+    try {
+      updateTodo(payload).then((response) => {
+        if (response.status === 200) {
+          /** Run Dispatch EDIT TODO */
+          dispatch({
+            type: 'EDIT_TODO',
+            data: response.data,
+          });
+
+          toast.success('Successfull Edit Status Todo');
+        }
+      });
+    } catch (error) {
+      toast.error(error);
+    }
+  };
+
+  const handleRemoveTodo = (todo) => {
+    try {
+      deleteTodo(todo).then((response) => {
+        if (response.status === 200) {
+          // Run Dispatch DELETE TODO
+          dispatch({
+            type: 'DELETE_TODO',
+            data: { ...todo },
+          });
+
+          toast.success('Successfull Remove Todo');
+        }
+      });
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   return (
@@ -45,12 +85,7 @@ const TodoListComponents = () => {
                     }
                   />
                 }
-                onClick={() =>
-                  dispatch({
-                    type: 'EDIT_TODO',
-                    data: { ...todo, isCompleted: !todo.isCompleted },
-                  })
-                }
+                onClick={() => handleEditTodo(todo)}
               />
               <LabelComponent text={todo.value} disabled={todo.isCompleted} />
             </TodoItem>
@@ -58,12 +93,7 @@ const TodoListComponents = () => {
               <AtomButton
                 type="text"
                 icon={<IconComponent component={CloseSquareOutlined} />}
-                onClick={() =>
-                  dispatch({
-                    type: 'DELETE_TODO',
-                    data: { ...todo },
-                  })
-                }
+                onClick={() => handleRemoveTodo(todo)}
               />
             </TodoListAction>
           </TodoList>

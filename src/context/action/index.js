@@ -1,8 +1,12 @@
 export const TodoReducer = (state, action) => {
   /** Get Index */
-  const index = state.findIndex((data) => data.value === action.data.value);
+  const index = state?.findIndex((data) => data.id === action.data.id);
 
   switch (action.type) {
+    /** Handle Add */
+    case 'GET_TODOS':
+      return [...action.data.response];
+
     /** Handle Add */
     case 'ADD_TODO':
       const newTodo = [...state];
@@ -21,8 +25,6 @@ export const TodoReducer = (state, action) => {
       const removeTodo = state.filter(
         (data) => data.value !== state[index].value
       );
-
-      console.log(removeTodo);
 
       return removeTodo;
 
