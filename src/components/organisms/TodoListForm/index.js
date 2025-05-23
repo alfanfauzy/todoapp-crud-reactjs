@@ -14,9 +14,16 @@ import { toast } from 'react-toastify';
 const TodoListForm = () => {
   const { dispatch } = useTodoContext();
 
-  const [valueTask, setValueTask] = useState();
+  const [valueTask, setValueTask] = useState('');
 
   const handleSubmit = () => {
+    if(valueTask.length <5) {
+      toast.error('Input type must have more than 5 character');
+      return;
+    }
+    
+    
+    
     const payload = {
       id: createUniqueId(),
       value: valueTask,
