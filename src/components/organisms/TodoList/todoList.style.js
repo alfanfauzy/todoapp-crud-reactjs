@@ -15,6 +15,7 @@ const TodoList = styled('div', {
   gap: '20px',
   alignItems: 'center',
   justifyContent: 'space-between',
+  cursor: 'pointer',
 });
 
 const TodoItem = styled('span', {
