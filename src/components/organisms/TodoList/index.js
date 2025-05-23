@@ -72,7 +72,7 @@ const TodoListComponents = () => {
       <EmptyState />
       {todos &&
         todos.map((todo, index) => (
-          <TodoList key={index}>
+          <TodoList key={index} onClick={() => handleEditTodo(todo)}>
             <TodoItem>
               <AtomButton
                 type="text"
@@ -85,7 +85,6 @@ const TodoListComponents = () => {
                     }
                   />
                 }
-                onClick={() => handleEditTodo(todo)}
               />
               <LabelComponent text={todo.value} disabled={todo.isCompleted} />
             </TodoItem>
